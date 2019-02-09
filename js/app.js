@@ -1,5 +1,6 @@
 $(function () {
 
+    // Hacemos sortable a la lista.
     $("#sortable").sortable({
         placeholder: 'ui-state-highlight'
     });
@@ -15,10 +16,13 @@ $(function () {
     });
 
     $("#sortable").toggle();
+    $(".time").toggle();
 
     $("#comenzar").click(function (e) { 
         e.preventDefault();
         $(this).hide();
+        $("#menu").hide();
+        $(".time").toggle();
         $("#sortable").toggle();
     });
 
@@ -45,11 +49,19 @@ function comprobarArray() {
 }
 
 function comprobarVictoria() {
+    sumarTiempo();
     if (comprobarArray()) {
         alert('Has ganado');
         clearInterval(intervalo);
         $("#sortable").sortable("disable");
     }
 }
+
+function sumarTiempo() {
+    tiempo += 100;
+    $("#time").html("&nbsp;" + tiempo/1000 + " s");
+}
+
+var tiempo = 0;
 
 var intervalo = setInterval(comprobarVictoria, 100);
